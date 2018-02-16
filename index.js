@@ -1,10 +1,11 @@
 var express = require('express');
 var app = express();
-var mydata= "";
+
 const translate = require('google-translate-api');
 
 var http = require('http'); //the variable doesn't necessarily have to be named http
 http.createServer(function(req, res) {});
+
 
 
 // Socket connection
@@ -17,14 +18,15 @@ socketServer.listen(3002, function(){
 });
 /* This event will emit when client connects to the socket server */
 io.on('connection', function(data){
-  
+
+
 translate('Ik spreek Engels', {to: 'en'}).then(res => {
     console.log(res.text);
     
-
-    mydata = res.text;
+    var mydata = res.text;
     
-    data.send(mydata);
+     data.send(mydata);
+
 
     //=> I speak English 
 
@@ -34,21 +36,10 @@ translate('Ik spreek Engels', {to: 'en'}).then(res => {
     console.error(err);
 });
 
-
-
+  
 });
 /* Create HTTP server for node application */
 var server = http.createServer(app);
 /* Node application will be running on 3000 port */
-
-
-
-
-
-
- 
-
-
-
 
 server.listen(3000);
